@@ -2,6 +2,12 @@
 
 A new Flutter project.
 
+
+## 测试项目
+- 项目处于开发状态
+- 不保证能跑
+- 内容随时变更
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
