@@ -8,6 +8,7 @@ class Ship {
   late bool is_premium;
   late String nation;
   late String name;
+  late String imgLink;
   String getRomanTier() {
     var romanList = [
       "0",
@@ -52,5 +53,9 @@ class Ship {
 
   bool getPremium() {
     return is_premium;
+  }
+
+  String getImgLing() {
+    return imgLink;
   }
 }

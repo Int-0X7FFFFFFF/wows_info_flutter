@@ -4,6 +4,7 @@ import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'dart:io' show Platform;
 import 'nav.dart';
 import 'package:provider/provider.dart';
+import 'common.dart';
 
 void main() {
   if (Platform.isAndroid) {
@@ -14,7 +15,7 @@ void main() {
     ));
   }
   runApp(MultiProvider(
-    providers: [],
+    providers: [ChangeNotifierProvider.value(value: ColorSeed())],
     child: MyApp(),
   ));
 }
