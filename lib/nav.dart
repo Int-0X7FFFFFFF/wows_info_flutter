@@ -3,7 +3,16 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wows_info_flutter/home/index.dart';
+import 'package:wows_info_flutter/search/search.dart';
+import 'package:wows_info_flutter/user/userPage.dart';
 import 'common.dart';
+
+var _controller = PageController(
+  initialPage: 0,
+);
+
+int _selectedIndex = 0;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -56,9 +65,54 @@ class _HomePageState extends State<HomePage> {
       }
     });
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('wows flutter'),
+      bottomNavigationBar: const BottomNavBar(),
+      body: PageView(
+        controller: _controller,
+        physics: const NeverScrollableScrollPhysics(),
+        children: const <Widget>[
+          Index(),
+          UserPage(),
+          SeachPage(),
+        ],
       ),
+    );
+  }
+}
+
+class BottomNavBar extends StatefulWidget {
+  const BottomNavBar({Key? key}) : super(key: key);
+
+  @override
+  State<BottomNavBar> createState() => _BottomNavBarState();
+}
+
+class _BottomNavBarState extends State<BottomNavBar> {
+  void _onItemTapped(int index) {
+    setState(() {
+      _controller.jumpToPage(index);
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return NavigationBar(
+      destinations: const <Widget>[
+        NavigationDestination(
+          icon: Icon(Icons.home),
+          label: '主页',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.person),
+          label: '主账号',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.search),
+          label: '搜索',
+        ),
+      ],
+      selectedIndex: _selectedIndex,
+      onDestinationSelected: _onItemTapped,
     );
   }
 }
