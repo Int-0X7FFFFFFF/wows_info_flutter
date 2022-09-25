@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:wows_info_flutter/init.dart';
 import 'dart:io' show Platform;
 import 'nav.dart';
 import 'package:provider/provider.dart';
@@ -15,8 +16,14 @@ void main() {
     ));
   }
   runApp(MultiProvider(
-    providers: [ChangeNotifierProvider.value(value: ColorSeed())],
-    child: MyApp(),
+    providers: [
+      ChangeNotifierProvider.value(value: ColorSeed()),
+      ChangeNotifierProvider.value(value: ShipList()),
+      ChangeNotifierProvider.value(value: ShipExp()),
+      ChangeNotifierProvider.value(value: AccountSetting()),
+      ChangeNotifierProvider.value(value: Setting()),
+    ],
+    child: const MyApp(),
   ));
 }
 
@@ -29,7 +36,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final routes = {
-    '/': (context, {arguments}) => HomePage(),
+    '/': (context, {arguments}) => const HomePage(),
+    'init': (context, {arguments}) => const InitPage(),
   };
 
   Future<dynamic> highRefreshRate() async {
@@ -56,7 +64,8 @@ class _MyAppState extends State<MyApp> {
             title: 'wows flutter',
             theme: ThemeData(
               useMaterial3: true,
-              colorSchemeSeed: const Color(0xff6750a4), // M3 Baseline
+              colorSchemeSeed:
+                  Provider.of<ColorSeed>(context).getColor, // M3 Baseline
             ),
             routes: routes,
             initialRoute: '/',
