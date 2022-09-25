@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wows_info_flutter/model/ship.dart';
 
 class ColorSeed extends ChangeNotifier {
   var colorSeed = const Color(0xff6750a4);
@@ -14,16 +15,31 @@ class ColorSeed extends ChangeNotifier {
 
 class ShipList extends ChangeNotifier {
   Map shipList = {};
+  Map<int, Ship> ships = {};
   int version = 0;
 
   void setShipList(Map targetShipList, int targetVersion) {
     shipList = targetShipList;
     version = version;
+    shipList.forEach((key, value) {
+      int id = int.parse(key);
+      int tier = value['tier'];
+      String type = value['type'];
+      String name = value['name'];
+      String nation = value['nation'];
+      String imgLink = value['images']['small'];
+      bool isSpecial = value['is_special'];
+      bool isPremium = value['is_premium'];
+      Ship ship =
+          Ship(id, tier, type, name, nation, imgLink, isSpecial, isPremium);
+      ships[id] = ship;
+    });
     notifyListeners();
   }
 
   Map get getShipList => shipList;
   int get getVersion => version;
+  Map get getShips => ships;
 }
 
 class ShipExp extends ChangeNotifier {

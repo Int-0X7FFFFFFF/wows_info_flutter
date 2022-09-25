@@ -58,4 +58,7 @@ class Ship {
   String getImgLing() {
     return imgLink;
   }
+
+  Ship(this.id, this.tier, this.type, this.name, this.nation, this.imgLink,
+      this.is_special, this.is_premium);
 }
