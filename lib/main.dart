@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:wows_info_flutter/home/searchPage.dart';
 import 'package:wows_info_flutter/init.dart';
 import 'dart:io' show Platform;
 import 'nav.dart';
@@ -38,6 +39,7 @@ class _MyAppState extends State<MyApp> {
   final routes = {
     '/': (context, {arguments}) => const HomePage(),
     'init': (context, {arguments}) => const InitPage(),
+    '/search': (context, {arguments}) => const SearchPage(),
   };
 
   Future<dynamic> highRefreshRate() async {

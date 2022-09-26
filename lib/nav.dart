@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wows_info_flutter/home/index.dart';
-import 'package:wows_info_flutter/search/search.dart';
+import 'package:wows_info_flutter/setting/setting.dart';
 import 'package:wows_info_flutter/user/userPage.dart';
 import 'common.dart';
 
@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
         children: const <Widget>[
           Index(),
           UserPage(),
-          SeachPage(),
+          SettingPage(),
         ],
       ),
     );
@@ -107,8 +107,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
           label: '主账号',
         ),
         NavigationDestination(
-          icon: Icon(Icons.search),
-          label: '搜索',
+          icon: Icon(Icons.settings),
+          label: '设置',
         ),
       ],
       selectedIndex: _selectedIndex,

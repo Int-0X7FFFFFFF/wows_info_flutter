@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 
 apiVersion() async {
   var api =
@@ -29,5 +30,18 @@ apiShipExp() async {
   Response response;
   response = await dio.get(api);
   var res = json.decode(response.data.toString());
+  return res;
+}
+
+apiPersonData(int accountId, String server) async {
+  var applicationId = json.decode(await rootBundle
+      .loadString('lib/json/wows_applications_key.json'))['key'];
+  var api = 'https://api.worldofwarships.$server/wows/account/info/';
+  var dio = Dio();
+  var response = await dio.get(api, queryParameters: {
+    'application_id': applicationId,
+    'account_id': accountId.toString(),
+  });
+  var res = response.data;
   return res;
 }

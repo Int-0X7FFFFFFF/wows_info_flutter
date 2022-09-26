@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wows_info_flutter/APIs.dart';
 import 'package:wows_info_flutter/common.dart';
+import 'package:wows_info_flutter/home/searchpage.dart';
+import 'package:wows_info_flutter/model/user.dart';
 
 class Index extends StatefulWidget {
   const Index({super.key});
@@ -54,6 +56,20 @@ class _IndexState extends State<Index> {
     }
   }
 
+  Route searchrote() {
+    return PageRouteBuilder(
+      transitionDuration: const Duration(milliseconds: 300),
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          const SearchPage(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final shipListUpdateCode = Provider.of<Setting>(context).getShipListUpdate;
@@ -82,8 +98,10 @@ class _IndexState extends State<Index> {
         return Scaffold(
           appBar: AppBar(title: const Text("主页")),
           floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.settings),
-            onPressed: () {},
+            child: const Icon(Icons.search),
+            onPressed: () {
+              Navigator.of(context).push(searchrote());
+            },
           ),
           body: Column(
             children: [
