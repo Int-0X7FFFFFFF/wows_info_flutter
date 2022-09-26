@@ -56,20 +56,6 @@ class _IndexState extends State<Index> {
     }
   }
 
-  Route searchrote() {
-    return PageRouteBuilder(
-      transitionDuration: const Duration(milliseconds: 300),
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          const SearchPage(),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return FadeTransition(
-          opacity: animation,
-          child: child,
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final shipListUpdateCode = Provider.of<Setting>(context).getShipListUpdate;
@@ -100,7 +86,7 @@ class _IndexState extends State<Index> {
           floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.search),
             onPressed: () {
-              Navigator.of(context).push(searchrote());
+              Navigator.pushNamed(context, '/search');
             },
           ),
           body: Column(

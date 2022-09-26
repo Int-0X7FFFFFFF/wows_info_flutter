@@ -45,3 +45,16 @@ apiPersonData(int accountId, String server) async {
   var res = response.data;
   return res;
 }
+
+apiUserNameSearch(String userName, String server) async {
+  var applicationId = json.decode(await rootBundle
+      .loadString('lib/json/wows_applications_key.json'))['key'];
+  var api = 'https://api.worldoftanks.$server/wgn/account/list/';
+  var dio = Dio();
+  var response = await dio.get(api, queryParameters: {
+    'application_id': applicationId,
+    'game': 'wows',
+    'search': userName,
+  });
+  return response.data;
+}
