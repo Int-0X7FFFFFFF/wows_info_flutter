@@ -24,6 +24,16 @@ class _SearchPageState extends State<SearchPage> {
               },
               icon: const Icon(Icons.arrow_back),
             ),
+            bottom: AppBar(
+              title: Container(
+                width: double.infinity,
+                height: 40,
+                color: Theme.of(context).primaryColor,
+                child: const Center(
+                  child: TextField(),
+                ),
+              ),
+            ),
           ),
         ],
       ),
