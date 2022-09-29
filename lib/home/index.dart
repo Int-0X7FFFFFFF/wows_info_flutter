@@ -1,12 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wows_info_flutter/APIs.dart';
 import 'package:wows_info_flutter/common.dart';
-import 'package:wows_info_flutter/home/searchpage.dart';
 import 'package:wows_info_flutter/model/user.dart';
 
 class Index extends StatefulWidget {
@@ -86,7 +84,7 @@ class _IndexState extends State<Index> {
           floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.search),
             onPressed: () {
-              Navigator.pushNamed(context, '/search');
+              showSearch(context: context, delegate: CustomSearchDelegate());
             },
           ),
           body: Column(
@@ -141,6 +139,154 @@ class _IndexState extends State<Index> {
           ),
         );
       },
+    );
+  }
+}
+
+class CustomSearchDelegate extends SearchDelegate {
+  // Demo list to show querying
+  List<User> searchTerms = [];
+
+  // first overwrite to
+  // clear the search text
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        onPressed: () {
+          query = '';
+        },
+        icon: const Icon(Icons.clear),
+      ),
+    ];
+  }
+
+  // second overwrite to pop out of search menu
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        close(context, null);
+      },
+      icon: const Icon(Icons.arrow_back),
+    );
+  }
+
+  searchUser(String query, String server) async {
+    var res = await apiUserNameSearch(query, server);
+    List<User> matchQuery = [];
+    if (res['status'] == 'ok') {
+      for (var userJson in res['data']) {
+        User user = User();
+        user.setUser(userJson['account_id'], userJson['nickname'], server);
+        matchQuery.add(user);
+      }
+    }
+    return matchQuery;
+  }
+
+  // third overwrite to show query result
+  @override
+  Widget buildResults(BuildContext context) {
+    var server = Provider.of<Setting>(context).getApiServer;
+    return FutureBuilder(
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          List<User>? matchQuery = (snapshot.data ?? []) as List<User>?;
+          return ListView.builder(
+            itemCount: matchQuery?.length,
+            itemBuilder: (context, index) {
+              var result = matchQuery![index];
+              return GestureDetector(
+                child: Card(
+                  child: ListTile(
+                    title: Text(result.getName),
+                    subtitle: Text(result.getId.toString()),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, '/userdata',
+                      arguments: {'user': result});
+                },
+              );
+            },
+          );
+        } else {
+          List<User> matchQuery = [];
+          return ListView.builder(
+            itemCount: matchQuery.length,
+            itemBuilder: (context, index) {
+              var result = matchQuery[index];
+              return GestureDetector(
+                child: Card(
+                  child: ListTile(
+                    title: Text(result.getName),
+                    subtitle: Text(result.getId.toString()),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, '/userdata',
+                      arguments: {'user': result});
+                },
+              );
+            },
+          );
+        }
+      },
+      future: searchUser(query, server),
+    );
+  }
+
+  // last overwrite to show the
+  // querying process at the runtime
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    var server = Provider.of<Setting>(context).getApiServer;
+    return FutureBuilder(
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          List<User>? matchQuery = (snapshot.data ?? []) as List<User>?;
+          return ListView.builder(
+            itemCount: matchQuery?.length,
+            itemBuilder: (context, index) {
+              var result = matchQuery![index];
+              return GestureDetector(
+                child: Card(
+                  child: ListTile(
+                    title: Text(result.getName),
+                    subtitle: Text(result.getId.toString()),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, '/userdata',
+                      arguments: {'user': result});
+                },
+              );
+            },
+          );
+        } else {
+          List<User> matchQuery = [];
+          return ListView.builder(
+            itemCount: matchQuery.length,
+            itemBuilder: (context, index) {
+              var result = matchQuery[index];
+              return GestureDetector(
+                child: Card(
+                  child: ListTile(
+                    title: Text(result.getName),
+                    subtitle: Text(result.getId.toString()),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, '/userdata',
+                      arguments: {'user': result});
+                },
+              );
+            },
+          );
+        }
+      },
+      future: searchUser(query, server),
     );
   }
 }
