@@ -14,6 +14,10 @@ class _UserDataState extends State<UserData> {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
     User user = arguments['user'];
+    UserProfile userProfile = UserProfile();
+    userProfile.initUser(user.getId, user.getServer).then(((value) {
+      userProfile.battles;
+    }));
     return Scaffold(
       appBar: AppBar(title: Text(user.getName)),
     );

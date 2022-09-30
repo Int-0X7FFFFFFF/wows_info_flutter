@@ -58,3 +58,15 @@ apiUserNameSearch(String userName, String server) async {
   });
   return response.data;
 }
+
+apiUserShipList(String accountId, String server) async {
+  var applicationId = json.decode(await rootBundle
+      .loadString('lib/json/wows_applications_key.json'))['key'];
+  var api = 'https://api.worldofwarships.asia/wows/ships/stats/';
+  var dio = Dio();
+  var response = await dio.get(api, queryParameters: {
+    'application_id': applicationId,
+    'account_id': accountId,
+  });
+  return response.data;
+}
