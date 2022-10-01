@@ -1,8 +1,8 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import 'package:wows_info_flutter/APIs.dart';
-import 'package:wows_info_flutter/common.dart';
 import 'package:wows_info_flutter/model/ship.dart';
 
 class User {
@@ -95,6 +95,9 @@ class UserProfile extends User {
   late String KD;
   late String accuRate;
 
+  late int clanId;
+  late String clanTag;
+
   UserProfile();
 
   void genPrColor() {
@@ -134,29 +137,32 @@ class UserProfile extends User {
     }
   }
 
-  Future<bool> initShips(dynamic context) async {
-    try {
-      var ships = Provider.of<ShipList>(context).getShips;
-      var userShipJson = await apiUserShipList(id.toString(), server);
-      if (userShipJson['status'] == 'ok') {
-        for (var shipJson in userShipJson['data'][id.toString()]) {
+  Future<bool> initShips(dynamic ships, dynamic exps) async {
+    var userShipJson = await apiUserShipList(id.toString(), server);
+    if (userShipJson['status'] == 'ok') {
+      shipList = [];
+      for (var shipJson in userShipJson['data'][id.toString()]) {
+        try {
           var shipId = shipJson['ship_id'];
           Ship shipTmp = ships[shipId];
-          var shipDataTmp = shipTmp.getShipData();
-          shipDataTmp.initShipData(shipJson, context);
-          shipDataTmp.initPR(context);
+        } catch (e) {
+          continue;
+        }
+        var shipId = shipJson['ship_id'];
+        Ship shipTmp = ships[shipId];
+        var shipDataTmp = shipTmp.getShipData();
+        shipDataTmp.initShipData(shipJson, exps);
+        if (shipDataTmp.battles != 0) {
           shipList.add(shipDataTmp);
         }
-        int prTotal = 0;
-        for (ShipData shipData in shipList) {
-          prTotal += shipData.prNum.toInt();
-          prNum = prTotal ~/ battles;
-        }
-        genPrColor();
-      } else {
-        return false;
       }
-    } catch (e) {
+      double prTotal = 0;
+      for (ShipData shipData in shipList) {
+        prTotal += shipData.prNum.toInt() * (shipData.battles / battles);
+      }
+      prNum = prTotal.toInt();
+      genPrColor();
+    } else {
       return false;
     }
     return true;
@@ -222,15 +228,29 @@ class UserProfile extends User {
 
           battlesString = battles.toString();
           var format = NumberFormat.percentPattern();
+          format.minimumIntegerDigits = 2;
           winRate =
-              format.format(int.parse((wins / battles).toStringAsFixed(2)));
+              format.format(double.parse((wins / battles).toStringAsFixed(2)));
           xpAvg = (xp / battles).toStringAsFixed(0);
           KD = (frags / (battles - survivedBattles)).toStringAsFixed(1);
           if (shots != 0) {
             accuRate =
-                format.format(int.parse((hits / shots).toStringAsFixed(2)));
+                format.format(double.parse((hits / shots).toStringAsFixed(2)));
           } else {
             accuRate = "N/A";
+          }
+          var userClanJson = await apiUserClanData(id.toString(), server);
+          if (userClanJson['status'] == 'ok') {
+            if (userClanJson['data'][id.toString()] != null) {
+              clanId = userClanJson['data'][id.toString()]['clan_id'];
+              var clanDataJson = await apiClanData(clanId.toString(), server);
+              if (clanDataJson['status'] == 'ok') {
+                clanTag = clanDataJson['data'][clanId.toString()]['tag'];
+              }
+            } else {
+              clanId = 1;
+              clanTag = 'N/A';
+            }
           }
         }
         return true;

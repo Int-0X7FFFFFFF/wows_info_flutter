@@ -62,11 +62,35 @@ apiUserNameSearch(String userName, String server) async {
 apiUserShipList(String accountId, String server) async {
   var applicationId = json.decode(await rootBundle
       .loadString('lib/json/wows_applications_key.json'))['key'];
-  var api = 'https://api.worldofwarships.asia/wows/ships/stats/';
+  var api = 'https://api.worldofwarships.$server/wows/ships/stats/';
   var dio = Dio();
   var response = await dio.get(api, queryParameters: {
     'application_id': applicationId,
     'account_id': accountId,
+  });
+  return response.data;
+}
+
+apiUserClanData(String accountId, String server) async {
+  var applicationId = json.decode(await rootBundle
+      .loadString('lib/json/wows_applications_key.json'))['key'];
+  var api = 'https://api.worldofwarships.$server/wows/clans/accountinfo/';
+  var dio = Dio();
+  var response = await dio.get(api, queryParameters: {
+    'application_id': applicationId,
+    'account_id': accountId,
+  });
+  return response.data;
+}
+
+apiClanData(String clanId, String server) async {
+  var applicationId = json.decode(await rootBundle
+      .loadString('lib/json/wows_applications_key.json'))['key'];
+  var api = 'https://api.worldofwarships.$server/wows/clans/info/';
+  var dio = Dio();
+  var response = await dio.get(api, queryParameters: {
+    'application_id': applicationId,
+    'clan_id': clanId,
   });
   return response.data;
 }

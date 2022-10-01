@@ -4,8 +4,6 @@ import 'dart:math';
 
 import 'package:flutter/animation.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
-import 'package:wows_info_flutter/common.dart';
 
 class Ship {
   late int id;
@@ -122,8 +120,8 @@ class ShipData extends Ship {
     }
   }
 
-  void initPR(dynamic context) {
-    var expData = Provider.of<ShipExp>(context).getShipExp;
+  void initPR(dynamic exps) {
+    var expData = exps;
     var shipExpData = expData['data'][id.toString()];
     var avgDmg = shipExpData['average_damage_dealt'];
     var avgFrags = shipExpData['average_frags'];
@@ -131,7 +129,7 @@ class ShipData extends Ship {
 
     var rDmg = (damageDealt / battles) / avgDmg;
     var rFrags = (frags / battles) / avgFrags;
-    var rWins = (wins / battles) / avgWinRate;
+    var rWins = (wins / battles) * 100 / avgWinRate;
 
     var nDmg = max(0, (rDmg - 0.4)) / (1 - 0.4);
     var nFrags = max(0, (rFrags - 0.1)) / (1 - 0.1);
@@ -142,44 +140,51 @@ class ShipData extends Ship {
     var pr = (350 + (350 * wrW)) * nDmg +
         300 * nFrags +
         (150 + (350 * (1 - wrW))) * nWins;
-    prNum = pr as int;
+    prNum = pr.toInt();
     genPrColor();
   }
 
-  bool initShipData(Map shipJson, dynamic context) {
-    try {
-      var pvp = shipJson['pvp'];
-      lastBattleTime = shipJson['last_battle_time'];
-      distance = shipJson['distance'];
-      battles = pvp['battles'];
-      wins = pvp['wins'];
-      losses = pvp['losses'];
-      damageDealt = pvp['damage_dealt'];
-      survivedBattles = pvp['survived_battles'];
-      xp = pvp['xp'];
-      frags = pvp['frags'];
-      shots = pvp['main_battery']['shots'];
-      hits = pvp['main_battery']['hits'];
-      maxDamageDealt = pvp['max_damage_dealt'];
-      maxDamageScouting = pvp['max_damage_scouting'];
-      maxFrags = pvp['max_frags_battle'];
-      maxPlanesKilled = pvp['max_planes_killed'];
-      maxTotalAgro = pvp['max_total_agro'];
-      maxXp = pvp['max_xp'];
+  bool initShipData(Map shipJson, dynamic exps) {
+    var pvp = shipJson['pvp'];
+    lastBattleTime = shipJson['last_battle_time'];
+    distance = shipJson['distance'];
+    battles = pvp['battles'];
+    wins = pvp['wins'];
+    losses = pvp['losses'];
+    damageDealt = pvp['damage_dealt'];
+    survivedBattles = pvp['survived_battles'];
+    xp = pvp['xp'];
+    frags = pvp['frags'];
+    shots = pvp['main_battery']['shots'];
+    hits = pvp['main_battery']['hits'];
+    maxDamageDealt = pvp['max_damage_dealt'];
+    maxDamageScouting = pvp['max_damage_scouting'];
+    maxFrags = pvp['max_frags_battle'];
+    maxPlanesKilled = pvp['max_planes_killed'];
+    maxTotalAgro = pvp['max_total_agro'];
+    maxXp = pvp['max_xp'];
 
-      battlesString = battles.toString();
-      var format = NumberFormat.percentPattern();
-      winRate = format.format(int.parse((wins / battles).toStringAsFixed(2)));
-      xpAvg = (xp / battles).toStringAsFixed(0);
-      KD = (frags / (battles - survivedBattles)).toStringAsFixed(1);
-      if (shots != 0) {
-        accuRate = format.format(int.parse((hits / shots).toStringAsFixed(2)));
-      } else {
-        accuRate = "N/A";
+    battlesString = battles.toString();
+    var format = NumberFormat.percentPattern();
+    winRate = format.format(double.parse((wins / battles).toStringAsFixed(2)));
+    xpAvg = (xp / battles).toStringAsFixed(0);
+    KD = (frags / (battles - survivedBattles)).toStringAsFixed(1);
+    if (shots != 0) {
+      accuRate = format.format(double.parse((hits / shots).toStringAsFixed(2)));
+    } else {
+      accuRate = "N/A";
+    }
+    if (battles == 0) {
+      prNum = 0;
+      genPrColor();
+    } else {
+      try {
+        initPR(exps);
+      } catch (e) {
+        prNum = 0;
+        prColor = const Color.fromARGB(255, 105, 105, 105);
+        prString = '不可用';
       }
-      initPR(context);
-    } catch (e) {
-      return false;
     }
     return true;
   }
