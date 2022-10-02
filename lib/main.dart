@@ -8,13 +8,13 @@ import 'nav.dart';
 import 'package:provider/provider.dart';
 import 'common.dart';
 
-void main() {
+void main() async {
   if (Platform.isAndroid) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      systemNavigationBarColor: Colors.transparent,
-      systemNavigationBarDividerColor: Colors.transparent,
-    ));
+    WidgetsFlutterBinding.ensureInitialized();
+    final overlayStye = _makeSystemOverlayStyle();
+    SystemChrome.setSystemUIOverlayStyle(overlayStye);
+    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge,
+        overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
   }
   runApp(MultiProvider(
     providers: [
@@ -69,6 +69,11 @@ class _MyAppState extends State<MyApp> {
               colorSchemeSeed:
                   Provider.of<ColorSeed>(context).getColor, // M3 Baseline
             ),
+            darkTheme: ThemeData(
+                useMaterial3: true,
+                colorSchemeSeed: Provider.of<ColorSeed>(context).getColor,
+                brightness: Brightness.dark // M3 Baseline
+                ),
             routes: routes,
             initialRoute: '/',
           );
@@ -78,4 +83,14 @@ class _MyAppState extends State<MyApp> {
       },
     );
   }
+}
+
+SystemUiOverlayStyle _makeSystemOverlayStyle() {
+  return const SystemUiOverlayStyle(
+    systemNavigationBarColor: Colors.transparent,
+    systemNavigationBarIconBrightness: Brightness.dark,
+    statusBarColor: Colors.transparent,
+    statusBarBrightness: Brightness.light,
+    statusBarIconBrightness: Brightness.dark,
+  );
 }

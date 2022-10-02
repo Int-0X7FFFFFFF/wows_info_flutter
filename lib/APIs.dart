@@ -24,12 +24,11 @@ apiShipList() async {
 }
 
 apiShipExp() async {
-  var api =
-      'https://raw.githubusercontent.com/Int-0X7FFFFFFF/wows_info_flutter/master/lib/json/wows_exp.json';
+  var api = 'https://api.wows-numbers.com/personal/rating/expected/json/';
   var dio = Dio();
   Response response;
   response = await dio.get(api);
-  var res = json.decode(response.data.toString());
+  var res = response.data;
   return res;
 }
 

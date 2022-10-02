@@ -99,7 +99,11 @@ class _UserDataState extends State<UserData> {
                     height: 30,
                     child: ColoredBox(
                       color: userProfile.prColor,
-                      child: Center(child: Text(userProfile.prString)),
+                      child: Center(
+                          child: Text(
+                        '${userProfile.prString} ${userProfile.prNum}',
+                        style: const TextStyle(color: Colors.black),
+                      )),
                     ),
                   )),
               Padding(
