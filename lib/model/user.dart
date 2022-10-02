@@ -239,6 +239,7 @@ class UserProfile extends User {
           } else {
             accuRate = "N/A";
           }
+          damageAvg = (damageDealt ~/ battles).toString();
           var userClanJson = await apiUserClanData(id.toString(), server);
           if (userClanJson['status'] == 'ok') {
             if (userClanJson['data'][id.toString()] != null) {

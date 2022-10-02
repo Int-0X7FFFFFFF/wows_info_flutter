@@ -166,13 +166,23 @@ class ShipData extends Ship {
 
     battlesString = battles.toString();
     var format = NumberFormat.percentPattern();
-    winRate = format.format(double.parse((wins / battles).toStringAsFixed(2)));
+    try {
+      winRate =
+          format.format(double.parse((wins / battles).toStringAsFixed(2)));
+    } catch (e) {
+      winRate = '0%';
+    }
     xpAvg = (xp / battles).toStringAsFixed(0);
     KD = (frags / (battles - survivedBattles)).toStringAsFixed(1);
     if (shots != 0) {
       accuRate = format.format(double.parse((hits / shots).toStringAsFixed(2)));
     } else {
       accuRate = "N/A";
+    }
+    try {
+      damageAvg = (damageDealt ~/ battles).toString();
+    } catch (e) {
+      damageAvg = '0';
     }
     if (battles == 0) {
       prNum = 0;

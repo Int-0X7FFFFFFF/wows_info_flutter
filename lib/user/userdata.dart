@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:delayed_widget/delayed_widget.dart';
+import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wows_info_flutter/model/user.dart';
-
 import '../common.dart';
 
 class UserData extends StatefulWidget {
@@ -35,7 +35,10 @@ class _UserDataState extends State<UserData> {
               .substring(0, 10);
           return Scaffold(
             floatingActionButton: FloatingActionButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/userdata/userships',
+                    arguments: {'user': userProfile});
+              },
               child: const Icon(Icons.dashboard),
             ),
             body: ListView(children: [
@@ -108,166 +111,290 @@ class _UserDataState extends State<UserData> {
                   )),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
-                child: Card(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(32, 10, 32, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            DelayedWidget(
-                                delayDuration:
-                                    const Duration(milliseconds: 300),
-                                child: Center(
-                                  child: Column(
-                                    children: [
-                                      Icon(
-                                        Icons.sailing,
-                                        size: 64,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                      ),
-                                      Text(
-                                        userProfile.battles.toString(),
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onPrimaryContainer),
-                                      )
-                                    ],
-                                  ),
-                                )),
-                            DelayedWidget(
-                                delayDuration:
-                                    const Duration(milliseconds: 370),
-                                child: Center(
-                                  child: Column(
-                                    children: [
-                                      Icon(
-                                        Icons.emoji_events,
-                                        size: 64,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                      ),
-                                      Text(
-                                        userProfile.winRate.toString(),
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onPrimaryContainer),
-                                      )
-                                    ],
-                                  ),
-                                )),
-                            DelayedWidget(
-                                delayDuration:
-                                    const Duration(milliseconds: 400),
-                                child: Center(
-                                  child: Column(
-                                    children: [
-                                      Icon(
-                                        Icons.api,
-                                        size: 64,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                      ),
-                                      Text(
-                                        userProfile.battles.toString(),
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onPrimaryContainer),
-                                      )
-                                    ],
-                                  ),
-                                )),
-                          ],
+                child: FlipCard(
+                  fill: Fill.fillBack,
+                  front: Card(
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(32, 10, 32, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              DelayedWidget(
+                                  delayDuration:
+                                      const Duration(milliseconds: 300),
+                                  child: Center(
+                                    child: Column(
+                                      children: [
+                                        Icon(
+                                          Icons.sailing,
+                                          size: 64,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
+                                        Text(
+                                          userProfile.battles.toString(),
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimaryContainer),
+                                        )
+                                      ],
+                                    ),
+                                  )),
+                              DelayedWidget(
+                                  delayDuration:
+                                      const Duration(milliseconds: 370),
+                                  child: Center(
+                                    child: Column(
+                                      children: [
+                                        Icon(
+                                          Icons.emoji_events,
+                                          size: 64,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
+                                        Text(
+                                          userProfile.winRate.toString(),
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimaryContainer),
+                                        )
+                                      ],
+                                    ),
+                                  )),
+                              DelayedWidget(
+                                  delayDuration:
+                                      const Duration(milliseconds: 400),
+                                  child: Center(
+                                    child: Column(
+                                      children: [
+                                        Icon(
+                                          Icons.api,
+                                          size: 64,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
+                                        Text(
+                                          userProfile.damageAvg,
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimaryContainer),
+                                        )
+                                      ],
+                                    ),
+                                  )),
+                            ],
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(32, 10, 32, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            DelayedWidget(
-                                delayDuration:
-                                    const Duration(milliseconds: 370),
-                                child: Center(
-                                  child: Column(
-                                    children: [
-                                      Icon(
-                                        Icons.star_purple500,
-                                        size: 64,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                      ),
-                                      Text(
-                                        userProfile.xpAvg,
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onPrimaryContainer),
-                                      )
-                                    ],
-                                  ),
-                                )),
-                            DelayedWidget(
-                                delayDuration:
-                                    const Duration(milliseconds: 420),
-                                child: Center(
-                                  child: Column(
-                                    children: [
-                                      Icon(
-                                        Icons.gavel,
-                                        size: 64,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                      ),
-                                      Text(
-                                        userProfile.KD,
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onPrimaryContainer),
-                                      )
-                                    ],
-                                  ),
-                                )),
-                            DelayedWidget(
-                                delayDuration:
-                                    const Duration(milliseconds: 450),
-                                child: Center(
-                                  child: Column(
-                                    children: [
-                                      Icon(
-                                        Icons.network_ping,
-                                        size: 64,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                      ),
-                                      Text(
-                                        userProfile.accuRate,
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onPrimaryContainer),
-                                      )
-                                    ],
-                                  ),
-                                )),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(32, 10, 32, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              DelayedWidget(
+                                  delayDuration:
+                                      const Duration(milliseconds: 370),
+                                  child: Center(
+                                    child: Column(
+                                      children: [
+                                        Icon(
+                                          Icons.star_purple500,
+                                          size: 64,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
+                                        Text(
+                                          userProfile.xpAvg,
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimaryContainer),
+                                        )
+                                      ],
+                                    ),
+                                  )),
+                              DelayedWidget(
+                                  delayDuration:
+                                      const Duration(milliseconds: 420),
+                                  child: Center(
+                                    child: Column(
+                                      children: [
+                                        Icon(
+                                          Icons.gavel,
+                                          size: 64,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
+                                        Text(
+                                          userProfile.KD,
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimaryContainer),
+                                        )
+                                      ],
+                                    ),
+                                  )),
+                              DelayedWidget(
+                                  delayDuration:
+                                      const Duration(milliseconds: 450),
+                                  child: Center(
+                                    child: Column(
+                                      children: [
+                                        Icon(
+                                          Icons.network_ping,
+                                          size: 64,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
+                                        Text(
+                                          userProfile.accuRate,
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimaryContainer),
+                                        )
+                                      ],
+                                    ),
+                                  )),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
+                  back: Card(
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      child: Padding(
+                          padding: const EdgeInsets.fromLTRB(32, 10, 32, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 10, 0, 0),
+                                      child: Column(
+                                        children: [
+                                          const Text('胜场'),
+                                          Text(userProfile.wins.toString())
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 15, 0, 0),
+                                      child: Column(
+                                        children: [
+                                          const Text('击发炮弹'),
+                                          Text(userProfile.shots.toString())
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 15, 0, 0),
+                                      child: Column(
+                                        children: [
+                                          const Text('航行距离'),
+                                          Text(userProfile.distance.toString())
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 10, 0, 0),
+                                      child: Column(
+                                        children: [
+                                          const Text('平局'),
+                                          Text(userProfile.draws.toString())
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 15, 0, 0),
+                                      child: Column(
+                                        children: [
+                                          const Text('摧毁战舰'),
+                                          Text(userProfile.frags.toString())
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 15, 0, 0),
+                                      child: Column(
+                                        children: [
+                                          const Text('造成伤害'),
+                                          Text(userProfile.damageDealt
+                                              .toString())
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 10, 0, 0),
+                                      child: Column(
+                                        children: [
+                                          const Text('败场'),
+                                          Text(userProfile.losses.toString())
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 15, 0, 0),
+                                      child: Column(
+                                        children: [
+                                          const Text('炮弹命中'),
+                                          Text(userProfile.hits.toString())
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 15, 0, 0),
+                                      child: Column(
+                                        children: [
+                                          const Text('获得经验'),
+                                          Text(userProfile.xp.toString())
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ))),
                 ),
               ),
               DelayedWidget(
