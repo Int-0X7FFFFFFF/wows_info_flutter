@@ -31,7 +31,10 @@ class _UserShipsState extends State<UserShips> {
               child: Card(
                 child: Column(
                   children: [
-                    Image.network(ship.imgLink),
+                    FadeInImage.assetNetwork(
+                      placeholder: "lib/img/placehoder.png",
+                      image: ship.imgLink,
+                    ),
                     Center(
                       child: Text('${ship.getRomanTier()} ${ship.name}'),
                     ),
