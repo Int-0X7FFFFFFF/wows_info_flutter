@@ -46,3 +46,5 @@ app.*.map.json
 # API
 
 lib/json/wows_applications_key.json
+
+AndroidKey.jks
