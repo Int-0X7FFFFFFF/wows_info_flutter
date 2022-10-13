@@ -1,7 +1,7 @@
 import 'package:delayed_widget/delayed_widget.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:wows_info_flutter/model/ship.dart';
+import 'package:wows_flutter/model/ship.dart';
 
 class ShipDataPage extends StatefulWidget {
   const ShipDataPage({super.key});

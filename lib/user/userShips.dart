@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wows_info_flutter/model/ship.dart';
-import 'package:wows_info_flutter/model/user.dart';
+import 'package:wows_flutter/model/ship.dart';
+import 'package:wows_flutter/model/user.dart';
 
 class UserShips extends StatefulWidget {
   const UserShips({super.key});

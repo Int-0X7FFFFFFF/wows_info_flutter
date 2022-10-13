@@ -3,9 +3,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wows_info_flutter/APIs.dart';
-import 'package:wows_info_flutter/common.dart';
-import 'package:wows_info_flutter/model/user.dart';
+import 'package:wows_flutter/APIs.dart';
+import 'package:wows_flutter/common.dart';
+import 'package:wows_flutter/model/user.dart';
 
 class Index extends StatefulWidget {
   const Index({super.key});

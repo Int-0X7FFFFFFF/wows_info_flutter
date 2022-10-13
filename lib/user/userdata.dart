@@ -3,7 +3,7 @@ import 'package:delayed_widget/delayed_widget.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wows_info_flutter/model/user.dart';
+import 'package:wows_flutter/model/user.dart';
 import '../common.dart';
 
 class UserData extends StatefulWidget {

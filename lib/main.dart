@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
-import 'package:wows_info_flutter/init.dart';
-import 'package:wows_info_flutter/model/ship.dart';
-import 'package:wows_info_flutter/user/userShipData.dart';
-import 'package:wows_info_flutter/user/userShips.dart';
-import 'package:wows_info_flutter/user/userdata.dart';
+import 'package:wows_flutter/init.dart';
+import 'package:wows_flutter/model/ship.dart';
+import 'package:wows_flutter/user/userShipData.dart';
+import 'package:wows_flutter/user/userShips.dart';
+import 'package:wows_flutter/user/userdata.dart';
 import 'dart:io' show Platform;
 import 'nav.dart';
 import 'package:provider/provider.dart';

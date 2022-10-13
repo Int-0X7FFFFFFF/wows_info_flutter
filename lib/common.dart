@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wows_info_flutter/model/ship.dart';
+import 'package:wows_flutter/model/ship.dart';
 
 class ColorSeed extends ChangeNotifier {
   var colorSeed = const Color(0xff6750a4);

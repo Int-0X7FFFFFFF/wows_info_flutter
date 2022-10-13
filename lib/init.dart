@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wows_info_flutter/common.dart';
+import 'package:wows_flutter/common.dart';
 
 class InitPage extends StatefulWidget {
   const InitPage({super.key});

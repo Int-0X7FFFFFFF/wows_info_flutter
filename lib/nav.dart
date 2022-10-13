@@ -3,9 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wows_info_flutter/home/index.dart';
-import 'package:wows_info_flutter/setting/setting.dart';
-import 'package:wows_info_flutter/user/userPage.dart';
+import 'package:wows_flutter/home/index.dart';
+import 'package:wows_flutter/setting/setting.dart';
+import 'package:wows_flutter/user/userPage.dart';
 import 'common.dart';
 
 var _controller = PageController(

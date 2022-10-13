@@ -2,8 +2,8 @@
 
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
-import 'package:wows_info_flutter/APIs.dart';
-import 'package:wows_info_flutter/model/ship.dart';
+import 'package:wows_flutter/APIs.dart';
+import 'package:wows_flutter/model/ship.dart';
 
 class User {
   late int id;
