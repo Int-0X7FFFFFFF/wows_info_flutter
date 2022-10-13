@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:wows_info_flutter/init.dart';
+import 'package:wows_info_flutter/model/ship.dart';
+import 'package:wows_info_flutter/user/userShipData.dart';
 import 'package:wows_info_flutter/user/userShips.dart';
 import 'package:wows_info_flutter/user/userdata.dart';
 import 'dart:io' show Platform;
@@ -42,6 +44,7 @@ class _MyAppState extends State<MyApp> {
     'init': (context, {arguments}) => const InitPage(),
     '/userdata': (context, {arguments}) => const UserData(),
     '/userdata/userships': (context, {arguments}) => const UserShips(),
+    '/userdata/userships/ship': (context, {arguments}) => const ShipDataPage(),
   };
 
   Future<dynamic> highRefreshRate() async {

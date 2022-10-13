@@ -67,6 +67,10 @@ class AccountSetting extends ChangeNotifier {
       String targetMainAccount, String targetMainnAccountServer) {
     mainAccount = targetMainAccount;
     mainAccountServer = targetMainnAccountServer;
+    SharedPreferences.getInstance().then(((prefs) {
+      prefs.setString('mainAccount', mainAccount);
+      prefs.setString('mainAccountServer', mainAccountServer);
+    }));
     notifyListeners();
   }
 
@@ -79,6 +83,7 @@ class AccountSetting extends ChangeNotifier {
 
 class Setting extends ChangeNotifier {
   String apiServer = 'asia';
+  String apiServerName = '亚服';
   bool translate = true;
   bool github = true;
   int shipListUpdate = 0;
@@ -86,6 +91,32 @@ class Setting extends ChangeNotifier {
 
   void setApiServer(String targetApiServer) {
     apiServer = targetApiServer;
+    switch (apiServer) {
+      case 'asia':
+        {
+          apiServerName = "亚服";
+        }
+        break;
+      case 'com':
+        {
+          apiServerName = '美服';
+        }
+        break;
+      case 'ru':
+        {
+          apiServerName = '毛服';
+        }
+        break;
+      case 'eu':
+        {
+          apiServerName = '欧服';
+        }
+        break;
+      default:
+        {
+          apiServerName = "亚服";
+        }
+    }
     SharedPreferences.getInstance().then((prefs) {
       prefs.setString('apiServer', targetApiServer);
     });

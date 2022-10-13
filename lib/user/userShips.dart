@@ -24,10 +24,14 @@ class _UserShipsState extends State<UserShips> {
             crossAxisCount: 2,
             childAspectRatio: 1.0,
           ),
+          itemCount: ships.length,
           itemBuilder: ((context, index) {
             ShipData ship = ships[index];
             return GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, '/userdata/userships/ship',
+                    arguments: {'ship': ship});
+              },
               child: Card(
                 child: Column(
                   children: [

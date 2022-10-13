@@ -59,6 +59,28 @@ class _UserDataState extends State<UserData> {
                     ),
                   )),
               DelayedWidget(
+                  delayDuration: const Duration(milliseconds: 100),
+                  child: Center(
+                      child: GestureDetector(
+                    child: const Padding(
+                      padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                      child: Text("设置为主账号"),
+                    ),
+                    onTap: () {
+                      Provider.of<AccountSetting>(context, listen: false)
+                          .setMainAccount(
+                              userProfile.id.toString(), userProfile.server);
+                      final snackBar = SnackBar(
+                        content: const Text("绑定完成"),
+                        action: SnackBarAction(
+                          label: '知道了',
+                          onPressed: () {},
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    },
+                  ))),
+              DelayedWidget(
                   delayDuration: const Duration(milliseconds: 150),
                   child: Center(
                       child: Padding(
