@@ -1,5 +1,5 @@
 // DO NOT EDIT. This is code generated via package:intl/generate_localized.dart
-// This is a library that provides messages for a en locale. All the
+// This is a library that provides messages for a zh_CN locale. All the
 // messages from the main program should be duplicated here with the same
 // function name.
 
@@ -18,15 +18,15 @@ final messages = new MessageLookup();
 typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
-  String get localeName => 'en';
+  String get localeName => 'zh_CN';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "api_server": MessageLookupByLibrary.simpleMessage("API server"),
-        "api_server_asia": MessageLookupByLibrary.simpleMessage("ASIA"),
-        "api_server_eu": MessageLookupByLibrary.simpleMessage("EU"),
-        "api_server_na": MessageLookupByLibrary.simpleMessage("NA"),
-        "api_server_ru": MessageLookupByLibrary.simpleMessage("RU"),
+        "api_server": MessageLookupByLibrary.simpleMessage("游戏服务器"),
+        "api_server_asia": MessageLookupByLibrary.simpleMessage("亚服"),
+        "api_server_eu": MessageLookupByLibrary.simpleMessage("欧服"),
+        "api_server_na": MessageLookupByLibrary.simpleMessage("美服"),
+        "api_server_ru": MessageLookupByLibrary.simpleMessage("毛服"),
         "app_title": MessageLookupByLibrary.simpleMessage("WOWS Flutter")
       };
 }

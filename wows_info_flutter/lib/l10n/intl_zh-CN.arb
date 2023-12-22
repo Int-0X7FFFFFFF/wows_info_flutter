@@ -1,0 +1,8 @@
+{
+    "app_title":"WOWS Flutter",
+    "api_server": "游戏服务器",
+    "api_server_eu":"欧服",
+    "api_server_na":"美服",
+    "api_server_asia":"亚服",
+    "api_server_ru":"毛服"
+}

@@ -1,1 +1,8 @@
-{}
+{
+    "app_title":"WOWS Flutter",
+    "api_server": "API server",
+    "api_server_eu":"EU",
+    "api_server_na":"NA",
+    "api_server_asia":"ASIA",
+    "api_server_ru":"RU"
+}

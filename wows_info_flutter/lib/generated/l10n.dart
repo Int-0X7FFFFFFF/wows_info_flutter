@@ -49,6 +49,66 @@ class S {
   static S? maybeOf(BuildContext context) {
     return Localizations.of<S>(context, S);
   }
+
+  /// `WOWS Flutter`
+  String get app_title {
+    return Intl.message(
+      'WOWS Flutter',
+      name: 'app_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `API server`
+  String get api_server {
+    return Intl.message(
+      'API server',
+      name: 'api_server',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `EU`
+  String get api_server_eu {
+    return Intl.message(
+      'EU',
+      name: 'api_server_eu',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `NA`
+  String get api_server_na {
+    return Intl.message(
+      'NA',
+      name: 'api_server_na',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ASIA`
+  String get api_server_asia {
+    return Intl.message(
+      'ASIA',
+      name: 'api_server_asia',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `RU`
+  String get api_server_ru {
+    return Intl.message(
+      'RU',
+      name: 'api_server_ru',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -57,6 +117,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'zh-CN'),
     ];
   }
 
